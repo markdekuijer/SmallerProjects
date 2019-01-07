@@ -7,7 +7,7 @@ using UnityEngine;
 public class CylinderCreator : MonoBehaviour
 {
     public Vector3[] points = new Vector3[2];
-    [Range(0,360)] public int vertsCircle = 12;
+    [Range(8,360)] public int vertsCircle = 12;
     public float radius = 1;
 
     public void UpdateCylinderMesh()
@@ -18,9 +18,9 @@ public class CylinderCreator : MonoBehaviour
         //GetComponent<MeshRenderer>().sharedMaterial.mainTextureScale = new Vector2(1, textureRepeat);
     }
 
-    Mesh CreateCylinder(Vector3[] points, int segments)
+    private Mesh CreateCylinder(Vector3[] points, int segments)
     {
-        Vector3[] verts = new Vector3[points.Length * segments];
+        Vector3[] verts = new Vector3[(points.Length * segments) + points.Length];
         Vector2[] uvs = new Vector2[verts.Length];
         List<int> tris = new List<int>();
 
@@ -29,65 +29,69 @@ public class CylinderCreator : MonoBehaviour
 
         for (int i = 0; i < points.Length; i++)
         {
-            Vector3 forward = Vector3.zero;
-            if (i < points.Length - 1)
-            {
-                forward += points[(i + 1) % points.Length] - points[i];
-            }
-            if (i > 0)
-            {
-                forward += points[i] - points[(i - 1 + points.Length) % points.Length];
-            }
-            forward.Normalize();
-            Vector3 left = new Vector3(-forward.y, forward.x);
+            //Vector3 forward = Vector3.zero;
+            //if (i < points.Length - 1)
+            //{
+            //    forward += points[(i + 1) % points.Length] - points[i];
+            //}
+            //if (i > 0)
+            //{
+            //    forward += points[i] - points[(i - 1 + points.Length) % points.Length];
+            //}
+            //forward.Normalize();
+            //Vector3 left = new Vector3(-forward.y, forward.x);
 
             for (int j = 0; j < segments; j++)
             {
-                float angle = 360 / segments; // 360 / 12 = 30
+                float angle = 360f / ((float)segments - 1f); // 360 / 12 = 30
                 float mathAngle = angle * j; // 30 * j = 0 30 60 90
-
-                verts[vertexIndex] = PointOnCircle(radius, mathAngle, points[i]);
-
-                if(vertexIndex % segments == 0)
+                if(j == segments)
                 {
-                    print(vertexIndex);
-                    uvs[vertexIndex] = new Vector2(1, 0);
+                    verts[vertexIndex] = verts[vertexIndex - segments];
                 }
                 else
                 {
-                    float t = Mathf.Lerp(0, 1, (float)j / (float)segments);
-                    uvs[vertexIndex] = new Vector2(0, t);
+                    print(vertexIndex);
+                    verts[vertexIndex] = PointOnCircle(radius, mathAngle, points[i]);
                 }
+
+
+                float t = (float)j / (float)(segments - 1);
+                //Debug.Log(j + " " + t);
+                float v = (float)i / (float)(points.Length - 1);
+                uvs[vertexIndex] = new Vector2(t, v);
 
                 vertexIndex += 1;
             }
 
             if (i < points.Length - 1)
             {
-                for (int j = 0; j <= segments - 1; j++)
+                for (int j = 0; j < segments - 1; j++)
                 {
-                    if(j == segments - 1)
+                    /*if (j == segments - 1)
                     {
                         tris.Add(triangleIndex);
-                        tris.Add(triangleIndex + segments);
                         tris.Add(triangleIndex - (segments - 1));
+                        tris.Add(triangleIndex + segments);
 
-                        tris.Add(triangleIndex - (segments - 1));
                         tris.Add(triangleIndex + segments);
+                        tris.Add(triangleIndex - (segments - 1));
                         tris.Add(triangleIndex + 1);
                     }
-                    else
+                    else*/
                     {
                         tris.Add(triangleIndex);
-                        tris.Add(triangleIndex + segments);
                         tris.Add(triangleIndex + 1);
+                        tris.Add(triangleIndex + segments);
 
-                        tris.Add(triangleIndex + 1);
                         tris.Add(triangleIndex + segments);
+                        tris.Add(triangleIndex + 1);
                         tris.Add(triangleIndex + segments + 1);
                     }
                     triangleIndex += 1;
                 }
+
+                  triangleIndex += 1;
             }
 
 
