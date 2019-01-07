@@ -15,7 +15,7 @@ public class RoadCreator : MonoBehaviour
 
     public float radius = 1;
 
-    public void UpdateRoadMesh()
+    public void UpdateCylinderMesh()
     {
         Path path = GetComponent<PathCreator>().path;
         Vector3[] points = path.CalculateEvenlySpacedPoints(spacing);

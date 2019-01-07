@@ -12,7 +12,7 @@ public class RoadEditor : Editor
     {
         if (creator.autoUpdate && Event.current.type == EventType.Repaint)
         {
-            creator.UpdateRoadMesh();
+            creator.UpdateCylinderMesh();
         }
     }
 
@@ -22,7 +22,7 @@ public class RoadEditor : Editor
 
         if (GUILayout.Button("I am a regular Automatic Layout Button"))
         {
-            creator.UpdateRoadMesh();
+            creator.UpdateCylinderMesh();
         }
     }
 
