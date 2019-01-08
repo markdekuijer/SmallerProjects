@@ -10,7 +10,6 @@ public class RoadCreator : MonoBehaviour
     [Range(0.005f, 1.5f)]
     public float spacing = 1;
     public float roadWidth = 1;
-    public bool autoUpdate;
     public float tiling = 1;
 
     public float radius = 1;
@@ -22,7 +21,7 @@ public class RoadCreator : MonoBehaviour
         GetComponent<MeshFilter>().mesh = CreateCylinder(points, 9, path.IsClosed);
 
         int textureRepeat = Mathf.RoundToInt(tiling * points.Length * spacing * 0.05f);
-        GetComponent<MeshRenderer>().sharedMaterial.mainTextureScale = new Vector2(1, textureRepeat);
+        GetComponent<MeshRenderer>().sharedMaterial.mainTextureScale = new Vector2(-1, textureRepeat);
     }
 
     Mesh CreateRoadMesh(Vector3[] points, bool isClosed)

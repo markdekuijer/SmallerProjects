@@ -11,11 +11,13 @@ public class RoadEditor : Editor
 
     private void OnSceneGUI()
     {
-        if (creator.autoUpdate && Event.current.type == EventType.Repaint)
+        if (Event.current.type == EventType.Repaint)
         {
             creator.UpdateCylinderMesh();
         }
+
     }
+
 
     public override void OnInspectorGUI()
     {
@@ -25,6 +27,7 @@ public class RoadEditor : Editor
         {
             creator.UpdateCylinderMesh();
         }
+
     }
 
     private void OnEnable()
