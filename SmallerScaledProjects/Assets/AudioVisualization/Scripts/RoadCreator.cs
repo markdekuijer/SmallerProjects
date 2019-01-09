@@ -121,7 +121,6 @@ public class RoadCreator : MonoBehaviour
 
                 float t = (float)j / (float)(segments - 1);
                 float v = (float)i / (float)((isClosed ? points.Length : points.Length - 1));
-                print(v);
                 uvs[vertexIndex] = new Vector2(t, v);
 
                 vertexIndex += 1;

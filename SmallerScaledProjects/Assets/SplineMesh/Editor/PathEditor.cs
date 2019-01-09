@@ -121,9 +121,11 @@ public class PathEditor : Editor
         HandleUtility.AddDefaultControl(0);
     }
 
+    private Transform handleTransform;
     private void OnEnable()
     {
         creator = (PathCreator)target;
+        handleTransform = creator.transform;
 
         if (creator.path == null)
             creator.CreatePath();
@@ -161,13 +163,17 @@ public class PathEditor : Editor
                 Handles.color = (i % 3 == 0) ? creator.anchorColor : creator.controlColor;
                 float handleSize = (i % 3 == 0) ? creator.anchorDiameter : creator.controlDiameter;
 
+                //these are my handles
+                Vector3 newPoint = handleTransform.InverseTransformPoint(Path[i]);
+                //Debug.Log(newPoint);
                 Vector3 newPos = Handles.FreeMoveHandle(Path[i], Quaternion.identity, handleSize, Vector3.zero, Handles.CylinderHandleCap);
-                if(Path[i] != newPos)   
+                if (Path[i] != newPos)
                 {
                     Undo.RecordObject(creator, "Move point");
                     Path.MovePoint(i, newPos);
                 }
-            } 
+                //newPos = handleTransform.InverseTransformPoint(Path[i]);
+            }
         }
 
         lastPosInScene = creator.gameObject.transform.position;

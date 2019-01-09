@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -24,7 +25,6 @@ public class Path
             center + Vector3.right
         };
     }
-
     public Vector3 this[int i]
     {
         get
@@ -32,7 +32,6 @@ public class Path
             return points[i];
         }
     }
-
     public bool IsClosed
     {
         get
@@ -64,6 +63,16 @@ public class Path
                 }
             }
         }
+    }
+
+    public Vector3 GetPointInWorldspace(float progress)
+    {
+        Vector3 v = Vector3.zero;
+
+        float something = (progress * NumPoints) / NumPoints;
+        Debug.Log(something);
+
+        return v;
     }
 
     public bool AutoSetControlPoints
@@ -109,7 +118,6 @@ public class Path
             AutoSetAllAffectedControlPoints(points.Count - 1);
         }
     }
-
     public void SplitSegment(Vector3 anchorPos, int SegmentIndex)
     {
         points.InsertRange(SegmentIndex * 3 + 2, new Vector3[] { Vector3.zero, anchorPos, Vector3.zero });
@@ -122,7 +130,6 @@ public class Path
             AutoSetAnchorPoints(SegmentIndex * 3 + 3);
         }
     }
-
     public void DeleteSegment(int anchorIndex)
     {
         if (NumSegments > 2 || !isClosed && NumSegments > 1)
@@ -241,7 +248,6 @@ public class Path
 
         AutoSetStartAndEndControls();
     }
-
     void AutoSetAllControlPoints()
     {
         for (int i = 0; i < points.Count; i +=3)
@@ -251,7 +257,6 @@ public class Path
 
         AutoSetStartAndEndControls();
     }
-
     void AutoSetAnchorPoints(int anchorIndex)
     {
         Vector3 anchorPos = points[anchorIndex];
@@ -282,7 +287,6 @@ public class Path
             }
         }
     }
-
     void AutoSetStartAndEndControls()
     {
         if(!isClosed)

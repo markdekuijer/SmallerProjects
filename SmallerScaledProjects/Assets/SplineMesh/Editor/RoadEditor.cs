@@ -9,16 +9,6 @@ public class RoadEditor : Editor
 {
     RoadCreator creator;
 
-    private void OnSceneGUI()
-    {
-        if (Event.current.type == EventType.Repaint)
-        {
-            creator.UpdateCylinderMesh();
-        }
-
-    }
-
-
     public override void OnInspectorGUI()
     {
         base.OnInspectorGUI();
