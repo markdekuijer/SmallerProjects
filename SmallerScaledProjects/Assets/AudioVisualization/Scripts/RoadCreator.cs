@@ -1,7 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using SplinePath;
 
 [RequireComponent(typeof(PathCreator))]
 [RequireComponent(typeof(MeshFilter))]
