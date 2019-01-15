@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using SplinePath;
 
 public class PathCreator : MonoBehaviour
 {
@@ -15,6 +16,7 @@ public class PathCreator : MonoBehaviour
     public float controlDiameter = 0.075f;
     public bool displayControlPoints = true;
 
+    public SplineWalker pathWalker;
 
     public void CreatePath()
     {

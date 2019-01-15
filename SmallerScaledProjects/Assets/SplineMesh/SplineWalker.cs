@@ -1,28 +1,27 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using SplinePath;
 
 public class SplineWalker : MonoBehaviour
 {
     public Path path;
     public float movementSpeed;
     public float rotationSpeed;
-    public float spacing = 0.005f;
+    public bool forward;
+
+    //[Header("Reducing this makes character go faster on spline currently")]
+    float spacing = 0.05f;
 
     float progress = 0;
-    float actualspeed;
-    public Vector3[] points;
-
     int currentPoint;
-    public string name;
+    Vector3[] points;
+
 
     private void Start()
     {
-        path = GameObject.Find(name).GetComponent<PathCreator>().path;
+        path = transform.parent.GetComponent<PathCreator>().path;
         points = path.CalculateEvenlySpacedPoints(spacing);
-        print(points.Length);
-        float distance = points.Length;
-        actualspeed = 1 / distance;
     }
 
     private void Update()
