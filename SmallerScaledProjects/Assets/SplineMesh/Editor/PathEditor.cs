@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEditor;
+using SplinePath;
 
 [CustomEditor(typeof(PathCreator))]
 public class PathEditor : Editor
@@ -15,8 +16,10 @@ public class PathEditor : Editor
         }
     }
 
-    const float segmentSelectDistanceThreshold = 0.1f;
-    int selectedSegmentIndex = -1;
+    private const float segmentSelectDistanceThreshold = 0.1f;
+    private int selectedSegmentIndex = -1;
+
+    private Vector3 offset;
 
     public override void OnInspectorGUI()
     {
@@ -47,6 +50,7 @@ public class PathEditor : Editor
             SceneView.RepaintAll();
     }
 
+    Vector3 OldPos;
     private void OnSceneGUI()
     {
         Input();
@@ -137,6 +141,7 @@ public class PathEditor : Editor
         for (int i = 0; i < Path.NumSegments; i++)
         {
             Vector3[] points = Path.GetPointsInSegment(i);
+
             if (creator.displayControlPoints)
             {
                 Handles.color = Color.black;
