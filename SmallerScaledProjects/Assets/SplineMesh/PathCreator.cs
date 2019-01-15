@@ -16,8 +16,6 @@ public class PathCreator : MonoBehaviour
     public float controlDiameter = 0.075f;
     public bool displayControlPoints = true;
 
-    public SplineWalker pathWalker;
-
     public void CreatePath()
     {
         Debug.Log("Created");

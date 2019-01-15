@@ -10,7 +10,7 @@ public class RoadCreator : MonoBehaviour
 {
     [Range(0.005f, 1.5f)]
     public float spacing = 1;
-    public float roadWidth = 1;
+    private float roadWidth = 1;
     public float tiling = 1;
 
     public float radius = 1;
