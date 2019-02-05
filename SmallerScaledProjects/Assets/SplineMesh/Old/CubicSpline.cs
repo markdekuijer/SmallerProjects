@@ -22,6 +22,7 @@ public class CubicSpline : MonoBehaviour
         d = Vector3.Lerp(a, b, t);
         e = Vector3.Lerp(b, c, t);
         f = Vector3.Lerp(d, e, t);
+        t += Time.deltaTime * 0.25f;
     }
 
     private void OnDrawGizmos()

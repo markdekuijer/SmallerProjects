@@ -16,11 +16,11 @@ public class InstantiatePrefabs64 : MonoBehaviour
         {
             GameObject g = Instantiate(prefab);
             g.transform.position = this.transform.position;
-            g.transform.parent = this.transform;
+            g.transform.SetParent(this.transform);
             g.name = "cube " + i;
             Vector3 v = Vector3.right * i;
             v.x -= 32;
-            g.transform.position = v;
+            g.transform.position += v * 3.5f;
             samplesOjbs[i] = g;
         }
     }
@@ -30,9 +30,9 @@ public class InstantiatePrefabs64 : MonoBehaviour
         for (int i = 0; i < 64; i++)
         {
             if(useBuffer)
-                samplesOjbs[i].transform.localScale = new Vector3(10, (visualizer.audioBandBuffer64[i] * maxScale) + 2, 10);
+                samplesOjbs[i].transform.localScale = new Vector3(25, (visualizer.audioBandBuffer64[i] * maxScale) + 2, 25);
             else
-                samplesOjbs[i].transform.localScale = new Vector3(10, (visualizer.audioBand64[i] * maxScale) + 2, 10);
+                samplesOjbs[i].transform.localScale = new Vector3(25, (visualizer.audioBand64[i] * maxScale) + 2, 25);
         }
     }
 }

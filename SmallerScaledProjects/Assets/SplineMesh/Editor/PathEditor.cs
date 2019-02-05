@@ -16,7 +16,7 @@ public class PathEditor : Editor
         }
     }
 
-    private const float segmentSelectDistanceThreshold = 0.1f;
+    private const float segmentSelectDistanceThreshold = 0.25f;
     private int selectedSegmentIndex = -1;
 
     private Vector3 offset;
@@ -64,6 +64,7 @@ public class PathEditor : Editor
 
         if(guiEvent.type == EventType.MouseDown && guiEvent.button == 0 && guiEvent.shift)
         {
+            Debug.Log("should do something");
             if(selectedSegmentIndex != -1)
             {
                 Undo.RecordObject(creator, "Split Segment");
@@ -73,6 +74,7 @@ public class PathEditor : Editor
             {
                 Undo.RecordObject(creator, "Add Segment");
                 Path.AddSegment(mousePos);
+                Debug.Log("addSeg");
             }
         }
 
@@ -175,7 +177,7 @@ public class PathEditor : Editor
                 if (Path[i] != newPos)
                 {
                     Undo.RecordObject(creator, "Move point");
-                    Path.MovePoint(i, newPos);
+                    Path.MovePoint(i, newPos + creator.transform.position);
                 }
                 //newPos = handleTransform.InverseTransformPoint(Path[i]);
             }
